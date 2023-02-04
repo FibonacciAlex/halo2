@@ -135,7 +135,7 @@ public class ThemeRepositoryImpl
         // 2. check version compatibility
         if (!checkThemePropertyCompatibility(newProperty)) {
             throw new ThemeNotSupportException(
-                "当前主题仅支持 Halo " + newProperty.getRequire() + " 及以上的版本");
+                "当前主题仅支持 Halo " + newProperty.getRequire() + " 及以上的版本,当前系统版本 + " +HaloConst.HALO_VERSION);
         }
 
         // 3. move the temp folder into templates/themes/{theme_id}
