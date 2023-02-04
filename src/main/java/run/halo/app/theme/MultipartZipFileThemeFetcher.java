@@ -1,6 +1,6 @@
 package run.halo.app.theme;
 
-import static run.halo.app.utils.FileUtils.unzip;
+import static run.halo.app.utils.FileOperateUtils.unzip;
 
 import java.io.IOException;
 import java.util.zip.ZipInputStream;
@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import run.halo.app.exception.ServiceException;
 import run.halo.app.exception.ThemePropertyMissingException;
 import run.halo.app.handler.theme.config.support.ThemeProperty;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 
 /**
  * Multipart zip file theme fetcher.
@@ -33,7 +33,7 @@ public class MultipartZipFileThemeFetcher implements ThemeFetcher {
         final var file = (MultipartFile) source;
 
         try (var zis = new ZipInputStream(file.getInputStream())) {
-            final var tempDirectory = FileUtils.createTempDirectory();
+            final var tempDirectory = FileOperateUtils.createTempDirectory();
             log.info("Unzipping {} to path {}", file.getOriginalFilename(), tempDirectory);
             unzip(zis, tempDirectory);
             return ThemePropertyScanner.INSTANCE.fetchThemeProperty(tempDirectory)

@@ -63,11 +63,11 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: INFO
     org.hibernate.type.descriptor.sql.BasicExtractor: INFO
   file:
-    path: ${halo.work-dir}/logs
+    path: ./logs
 
 springfox:
   documentation:
-    enabled: true
+    enabled: false
 
 halo:
   auth-enabled: true

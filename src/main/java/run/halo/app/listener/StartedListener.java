@@ -35,7 +35,7 @@ import run.halo.app.model.properties.PrimaryProperties;
 import run.halo.app.model.support.HaloConst;
 import run.halo.app.service.OptionService;
 import run.halo.app.service.ThemeService;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 
 /**
  * The method executed after the application is started.
@@ -72,11 +72,12 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
-        try {
-            this.migrate();
-        } catch (SQLException e) {
-            log.error("Failed to migrate database!", e);
-        }
+        //remove flyway migrate operation
+//        try {
+//            this.migrate();
+//        } catch (SQLException e) {
+//            log.error("Failed to migrate database!", e);
+//        }
         this.initDirectory();
         this.initThemes();
         this.printStartInfo();
@@ -168,7 +169,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
             Path themePath = themeService.getBasePath().resolve(HaloConst.DEFAULT_THEME_ID);
 
             if (themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_ID).isEmpty()) {
-                FileUtils.copyFolder(source.resolve(HaloConst.DEFAULT_THEME_DIR_NAME), themePath);
+                FileOperateUtils.copyFolder(source.resolve(HaloConst.DEFAULT_THEME_DIR_NAME), themePath);
                 log.info("Copied theme folder from [{}] to [{}]", source, themePath);
             }
         } catch (Exception e) {

@@ -31,7 +31,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import run.halo.app.exception.ForbiddenException;
-
+import org.apache.commons.io.FileUtils;
 /**
  * File utilities.
  *
@@ -39,9 +39,9 @@ import run.halo.app.exception.ForbiddenException;
  * @date 4/9/19
  */
 @Slf4j
-public class FileUtils {
+public class FileOperateUtils {
 
-    private FileUtils() {
+    private FileOperateUtils() {
     }
 
     /**
@@ -547,7 +547,7 @@ public class FileUtils {
     public static void deleteFolderQuietly(@Nullable Path deletingPath) {
         try {
             if (deletingPath != null) {
-                FileUtils.deleteFolder(deletingPath);
+                FileOperateUtils.deleteFolder(deletingPath);
             }
         } catch (IOException e) {
             log.warn("Failed to delete {}", deletingPath);
@@ -589,7 +589,7 @@ public class FileUtils {
      * @param content the content to write to the file
      * @throws IOException in case of an I/O error
      */
-    public static void writeStringToFile(File file, String content) throws IOException {
-        org.apache.commons.io.FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8);
+    public static void writeUTF8StringToFile(File file, String content) throws IOException {
+        FileUtils.writeStringToFile(file, content, StandardCharsets.UTF_8.toString());
     }
 }

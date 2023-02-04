@@ -1,7 +1,7 @@
 package run.halo.app.theme;
 
 import static org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase;
-import static run.halo.app.utils.FileUtils.findPath;
+import static run.halo.app.utils.FileOperateUtils.findPath;
 
 import java.io.IOException;
 import java.nio.file.Files;

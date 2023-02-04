@@ -4,7 +4,7 @@ import static run.halo.app.model.support.HaloConst.HALO_BACKUP_MARKDOWN_PREFIX;
 import static run.halo.app.model.support.HaloConst.HALO_BACKUP_PREFIX;
 import static run.halo.app.model.support.HaloConst.HALO_DATA_EXPORT_PREFIX;
 import static run.halo.app.utils.DateTimeUtils.HORIZONTAL_LINE_DATETIME_FORMATTER;
-import static run.halo.app.utils.FileUtils.checkDirectoryTraversal;
+import static run.halo.app.utils.FileOperateUtils.checkDirectoryTraversal;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -105,7 +105,7 @@ import run.halo.app.service.ThemeSettingService;
 import run.halo.app.service.UserService;
 import run.halo.app.utils.DateTimeUtils;
 import run.halo.app.utils.DateUtils;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 import run.halo.app.utils.FilenameUtils;
 import run.halo.app.utils.HaloUtils;
 import run.halo.app.utils.JsonUtils;
@@ -233,7 +233,7 @@ public class BackupServiceImpl implements BackupService {
     public BasePostDetailDTO importMarkdown(MultipartFile file) throws IOException {
         try {
             // Read markdown content.
-            String markdown = FileUtils.readString(file.getInputStream());
+            String markdown = FileOperateUtils.readString(file.getInputStream());
             // TODO sheet import
             return postService.importMarkdown(markdown, file.getOriginalFilename());
         } catch (OutOfMemoryError error) {
@@ -282,7 +282,7 @@ public class BackupServiceImpl implements BackupService {
                 }
             }
             // Zip halo
-            FileUtils
+            FileOperateUtils
                 .zip(Paths.get(this.haloProperties.getWorkDir()), haloZipPath,
                     path -> {
                         for (String itemToBackup : options) {
@@ -441,7 +441,7 @@ public class BackupServiceImpl implements BackupService {
             }
             Path haloDataPath = Files.createFile(haloDataFilePath);
 
-            FileUtils.writeStringToFile(haloDataPath.toFile(), JsonUtils.objectToJson(data));
+            FileOperateUtils.writeUTF8StringToFile(haloDataPath.toFile(), JsonUtils.objectToJson(data));
             return buildBackupDto(DATA_EXPORT_BASE_URI, haloDataPath);
         } catch (IOException e) {
             throw new ServiceException("导出数据失败", e);
@@ -491,7 +491,7 @@ public class BackupServiceImpl implements BackupService {
 
     @Override
     public void importData(MultipartFile file) throws IOException {
-        String jsonContent = FileUtils.readString(file.getInputStream());
+        String jsonContent = FileOperateUtils.readString(file.getInputStream());
 
         ObjectMapper mapper = JsonUtils.createDefaultJsonMapper();
         TypeReference<HashMap<String, Object>> typeRef =
@@ -639,7 +639,7 @@ public class BackupServiceImpl implements BackupService {
                     Files.createDirectories(markdownFilePath.getParent());
                 }
                 Path markdownDataPath = Files.createFile(markdownFilePath);
-                FileUtils.writeStringToFile(markdownDataPath.toFile(), content.toString());
+                FileOperateUtils.writeUTF8StringToFile(markdownDataPath.toFile(), content.toString());
             } catch (IOException e) {
                 throw new ServiceException("导出数据失败", e);
             }
@@ -663,18 +663,18 @@ public class BackupServiceImpl implements BackupService {
 
             // Zip temporary directory
             Path markdownFileTempPath = Paths.get(markdownFileTempPathName);
-            FileUtils.zip(markdownFileTempPath, markdownZipOut);
+            FileOperateUtils.zip(markdownFileTempPath, markdownZipOut);
 
             // Zip upload sub-directory
             String uploadPathName =
                 FileHandler.normalizeDirectory(haloProperties.getWorkDir()) + UPLOAD_SUB_DIR;
             Path uploadPath = Paths.get(uploadPathName);
             if (Files.exists(uploadPath)) {
-                FileUtils.zip(uploadPath, markdownZipOut);
+                FileOperateUtils.zip(uploadPath, markdownZipOut);
             }
 
             // Remove files in the temporary directory
-            FileUtils.deleteFolder(markdownFileTempPath);
+            FileOperateUtils.deleteFolder(markdownFileTempPath);
 
             // Build backup dto
             return buildBackupDto(DATA_EXPORT_MARKDOWN_BASE_URI, markdownZipPath);

@@ -1,6 +1,6 @@
 package run.halo.app.theme;
 
-import static run.halo.app.utils.FileUtils.unzip;
+import static run.halo.app.utils.FileOperateUtils.unzip;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,7 +12,7 @@ import java.util.zip.ZipInputStream;
 import lombok.extern.slf4j.Slf4j;
 import run.halo.app.exception.ThemePropertyMissingException;
 import run.halo.app.handler.theme.config.support.ThemeProperty;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 
 /**
  * Zip theme fetcher.
@@ -59,7 +59,7 @@ public class ZipThemeFetcher implements ThemeFetcher {
 
             // unzip zip archive
             try (var zipInputStream = new ZipInputStream(inputStream)) {
-                var tempDirectory = FileUtils.createTempDirectory();
+                var tempDirectory = FileOperateUtils.createTempDirectory();
                 log.info("Unzipping theme {} to {}", themeZipLink, tempDirectory);
                 unzip(zipInputStream, tempDirectory);
 

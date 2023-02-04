@@ -2,8 +2,8 @@ package run.halo.app.repository;
 
 import static run.halo.app.model.properties.PrimaryProperties.THEME;
 import static run.halo.app.model.support.HaloConst.DEFAULT_THEME_ID;
-import static run.halo.app.utils.FileUtils.copyFolder;
-import static run.halo.app.utils.FileUtils.deleteFolderQuietly;
+import static run.halo.app.utils.FileOperateUtils.copyFolder;
+import static run.halo.app.utils.FileOperateUtils.deleteFolderQuietly;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,7 +30,7 @@ import run.halo.app.handler.theme.config.support.ThemeProperty;
 import run.halo.app.model.entity.Option;
 import run.halo.app.model.support.HaloConst;
 import run.halo.app.theme.ThemePropertyScanner;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 import run.halo.app.utils.Version;
 
 /**
@@ -177,7 +177,7 @@ public class ThemeRepositoryImpl
     public void deleteTheme(ThemeProperty themeProperty) {
         final var themePath = Paths.get(themeProperty.getThemePath());
         try {
-            FileUtils.deleteFolder(themePath);
+            FileOperateUtils.deleteFolder(themePath);
         } catch (IOException e) {
             throw new ServiceException("Failed to delete theme path: " + themePath, e);
         }

@@ -50,7 +50,7 @@ import run.halo.app.theme.ThemeFetcherComposite;
 import run.halo.app.theme.ThemeFileScanner;
 import run.halo.app.theme.ThemePropertyScanner;
 import run.halo.app.theme.ZipThemeFetcher;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 
 /**
  * Theme service implementation.
@@ -249,7 +249,7 @@ public class ThemeServiceImpl implements ThemeService {
 
         try {
             // Delete the folder
-            FileUtils.deleteFolder(Paths.get(themeProperty.getThemePath()));
+            FileOperateUtils.deleteFolder(Paths.get(themeProperty.getThemePath()));
             if (deleteSettings) {
                 // Delete theme settings
                 themeSettingRepository.deleteByThemeId(themeId);
@@ -439,7 +439,7 @@ public class ThemeServiceImpl implements ThemeService {
 
         log.debug("Downloaded [{}]", zipUrl);
         // Unzip it
-        FileUtils.unzip(downloadResponse.getBody(), targetPath);
+        FileOperateUtils.unzip(downloadResponse.getBody(), targetPath);
     }
 
     /**
@@ -450,7 +450,7 @@ public class ThemeServiceImpl implements ThemeService {
      */
     private void checkDirectory(@NonNull String absoluteName) {
         ThemeProperty activeThemeProperty = getThemeOfNonNullBy(getActivatedThemeId());
-        FileUtils.checkDirectoryTraversal(activeThemeProperty.getThemePath(), absoluteName);
+        FileOperateUtils.checkDirectoryTraversal(activeThemeProperty.getThemePath(), absoluteName);
     }
 
     /**
@@ -461,7 +461,7 @@ public class ThemeServiceImpl implements ThemeService {
      */
     private void checkDirectory(@NonNull String themeId, @NonNull String absoluteName) {
         ThemeProperty themeProperty = getThemeOfNonNullBy(themeId);
-        FileUtils.checkDirectoryTraversal(themeProperty.getThemePath(), absoluteName);
+        FileOperateUtils.checkDirectoryTraversal(themeProperty.getThemePath(), absoluteName);
     }
 
     /**

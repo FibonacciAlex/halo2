@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 80
   forward-headers-strategy: native
   error:
     include-message: always
@@ -9,6 +9,7 @@ spring:
       enabled: false
   mvc:
     pathmatch:
+      matching-strategy: ant-path-matcher
       use-suffix-pattern: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -69,4 +70,4 @@ springfox:
 halo:
   download-timeout: 5m
   cache: memory
-  work-dir: ${user.home}/.halo/
+  work-dir: ${user.home}/server/halo/

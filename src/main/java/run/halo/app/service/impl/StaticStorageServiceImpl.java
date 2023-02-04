@@ -26,7 +26,7 @@ import run.halo.app.exception.FileOperationException;
 import run.halo.app.exception.ServiceException;
 import run.halo.app.model.support.StaticFile;
 import run.halo.app.service.StaticStorageService;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 import run.halo.app.utils.HaloUtils;
 
 /**
@@ -48,7 +48,7 @@ public class StaticStorageServiceImpl
         ApplicationEventPublisher eventPublisher) throws IOException {
         staticDir = Paths.get(haloProperties.getWorkDir(), STATIC_FOLDER);
         this.eventPublisher = eventPublisher;
-        FileUtils.createIfAbsent(staticDir);
+        FileOperateUtils.createIfAbsent(staticDir);
     }
 
     @Override
@@ -108,13 +108,13 @@ public class StaticStorageServiceImpl
         Path path = Paths.get(staticDir.toString(), relativePath);
 
         // check if the path is valid (not outside staticDir)
-        FileUtils.checkDirectoryTraversal(staticDir.toString(), path.toString());
+        FileOperateUtils.checkDirectoryTraversal(staticDir.toString(), path.toString());
 
         log.debug(path.toString());
 
         try {
             if (path.toFile().isDirectory()) {
-                FileUtils.deleteFolder(path);
+                FileOperateUtils.deleteFolder(path);
             } else {
                 Files.deleteIfExists(path);
             }
@@ -141,14 +141,14 @@ public class StaticStorageServiceImpl
         }
 
         // check if the path is valid (not outside staticDir)
-        FileUtils.checkDirectoryTraversal(staticDir.toString(), path.toString());
+        FileOperateUtils.checkDirectoryTraversal(staticDir.toString(), path.toString());
 
         if (path.toFile().exists()) {
             throw new FileOperationException("目录 " + path.toString() + " 已存在").setErrorData(path);
         }
 
         try {
-            FileUtils.createIfAbsent(path);
+            FileOperateUtils.createIfAbsent(path);
         } catch (IOException e) {
             throw new FileOperationException("目录 " + path.toString() + " 创建失败", e);
         }
@@ -171,7 +171,7 @@ public class StaticStorageServiceImpl
         }
 
         // check if the path is valid (not outside staticDir)
-        FileUtils.checkDirectoryTraversal(staticDir.toString(), uploadPath.toString());
+        FileOperateUtils.checkDirectoryTraversal(staticDir.toString(), uploadPath.toString());
 
         if (uploadPath.toFile().exists()) {
             throw new FileOperationException("文件 " + file.getOriginalFilename() + " 已存在")
@@ -201,10 +201,10 @@ public class StaticStorageServiceImpl
         pathToRename = Paths.get(staticDir.toString(), basePath);
 
         // check if the path is valid (not outside staticDir)
-        FileUtils.checkDirectoryTraversal(staticDir.toString(), pathToRename.toString());
+        FileOperateUtils.checkDirectoryTraversal(staticDir.toString(), pathToRename.toString());
 
         try {
-            FileUtils.rename(pathToRename, newName);
+            FileOperateUtils.rename(pathToRename, newName);
             onChange();
         } catch (FileAlreadyExistsException e) {
             throw new FileOperationException("该路径下名称 " + newName + " 已存在");
@@ -220,7 +220,7 @@ public class StaticStorageServiceImpl
         Path savePath = Paths.get(staticDir.toString(), path);
 
         // check if the path is valid (not outside staticDir)
-        FileUtils.checkDirectoryTraversal(staticDir.toString(), savePath.toString());
+        FileOperateUtils.checkDirectoryTraversal(staticDir.toString(), savePath.toString());
 
         // check if file exist
         if (!Files.isRegularFile(savePath)) {

@@ -8,7 +8,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.transport.TagOpt;
 import run.halo.app.exception.ThemePropertyMissingException;
 import run.halo.app.handler.theme.config.support.ThemeProperty;
-import run.halo.app.utils.FileUtils;
+import run.halo.app.utils.FileOperateUtils;
 import run.halo.app.utils.GitUtils;
 
 /**
@@ -33,7 +33,7 @@ public class GitThemeFetcher implements ThemeFetcher {
 
         try {
             // create temp folder
-            final var tempDirectory = FileUtils.createTempDirectory();
+            final var tempDirectory = FileOperateUtils.createTempDirectory();
 
             // clone from git
             log.info("Cloning git repo {} to {}", repoUrl, tempDirectory);
