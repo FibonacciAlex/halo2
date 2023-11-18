@@ -69,15 +69,17 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
 
     @Value("${springfox.documentation.enabled}")
     private Boolean documentationEnabled;
+    @Value("${spring.flyway.enabled}")
+    private Boolean flywayEnable;
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         //remove flyway migrate operation
-//        try {
-//            this.migrate();
-//        } catch (SQLException e) {
-//            log.error("Failed to migrate database!", e);
-//        }
+        try {
+            this.migrate();
+        } catch (SQLException e) {
+            log.error("Failed to migrate database!", e);
+        }
         this.initDirectory();
         this.initThemes();
         this.printStartInfo();
@@ -111,8 +113,11 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
      * Migrate database.
      */
     private void migrate() throws SQLException {
-        log.info("Starting migrate database...");
+        log.info("Starting migrate database...flyway enable:{}", flywayEnable);
 
+        if(!flywayEnable){
+            return;
+        }
         Flyway flyway = Flyway
             .configure()
             .locations("classpath:/migration")
@@ -168,7 +173,10 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
             // Create theme folder
             Path themePath = themeService.getBasePath().resolve(HaloConst.DEFAULT_THEME_ID);
 
-            if (themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_ID).isEmpty()) {
+            if (themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_ID).isEmpty()
+                //测试期间可能没有主题，这里要加个判断
+                && themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_DIR_NAME).isPresent()
+            ) {
                 FileOperateUtils.copyFolder(source.resolve(HaloConst.DEFAULT_THEME_DIR_NAME), themePath);
                 log.info("Copied theme folder from [{}] to [{}]", source, themePath);
             }
