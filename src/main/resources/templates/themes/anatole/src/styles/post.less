@@ -1,0 +1,25 @@
+#toc ol > li, #toc ul > li {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.entry-navigation .nav:before {
+  background-color: #000;
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: .3;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity .5s cubic-bezier(.4, .01, .165, .99);
+  z-index: 1;
+}
+
+.entry-navigation .nav:hover:before {
+  opacity: .5;
+}
+
+.share-items a {
+  box-shadow: none !important;
+}

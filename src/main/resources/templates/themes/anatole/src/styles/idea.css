@@ -1,0 +1,10 @@
+/* 修改代码块颜色 */
+pre {
+  background-color: #22252a !important;
+}
+
+pre table.hljs-ln tr, pre table.hljs-ln thead {
+  background-color: #22252a !important;
+  font-size: 13px !important;
+  color: #a9b7c6 !important;
+}

@@ -1,0 +1,69 @@
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+}
+
+pre table tr:nth-child(2n),
+pre thead {
+  background-color: initial !important;
+}
+pre code table {
+  border: none !important;
+  display: block !important;
+  table-layout: initial !important;
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
+  max-width: initial !important;
+  padding-left: .5rem;
+}
+
+.hljs-ln td,
+.hljs-ln tr {
+  border: none !important;
+}
+
+.hljs-ln:first-child(.hljs-ln-numbers) {
+  display: none;
+}
+
+/* for block of numbers */
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  color: var(--base-code-text-color);
+  border-right: 1px solid #ccc;
+  vertical-align: top;
+  padding-right: 10px;
+  position: absolute;
+  left: 0;
+  width: 30px;
+  //background: var(--base-code-block-bg-color);
+}
+
+/* for block of button */
+td .hljs-button {
+  /* your custom style here */
+  border: none !important;
+  background-color: #f8f8f8 !important;
+  box-shadow: none !important;
+}
+
+.hljs-ln-n:before {
+  content: attr(data-line-number);
+}
+
+table.hljs-ln td {
+  padding: 2px 0 2px 4px;
+  background: #21252b;
+}
+
+/* for block of code */
+.hljs-ln-code {
+  padding-left: 16px !important;
+}
