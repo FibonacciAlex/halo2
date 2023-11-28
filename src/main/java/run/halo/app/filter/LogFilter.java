@@ -28,7 +28,7 @@ public class LogFilter extends OncePerRequestFilter {
 
         final String remoteAddr = ServletUtils.getClientIP(request);
 
-        log.debug("Starting url: [{}], method: [{}], ip: [{}]",
+        log.info("Starting url: [{}], method: [{}], ip: [{}]",
             request.getRequestURL(),
             request.getMethod(),
             remoteAddr);
@@ -39,7 +39,7 @@ public class LogFilter extends OncePerRequestFilter {
         // Do filter
         filterChain.doFilter(request, response);
 
-        log.debug("Ending   url: [{}], method: [{}], ip: [{}], status: [{}], usage: [{}] ms",
+        log.info("Ending   url: [{}], method: [{}], ip: [{}], status: [{}], usage: [{}] ms",
             request.getRequestURL(),
             request.getMethod(),
             remoteAddr,
