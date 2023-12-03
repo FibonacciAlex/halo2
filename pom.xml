@@ -336,12 +336,15 @@
                         <archive>
                             <manifest>
                                 <mainClass>run.halo.app.Application</mainClass>
+<!--                                外部依赖包位置-->
                                 <classpathPrefix>lib/</classpathPrefix>
+<!--                                是否使用外部包-->
                                 <addClasspath>true</addClasspath>
                             </manifest>
-                            <manifestEntries>
-                                <Class-Path>resources/</Class-Path>
-                            </manifestEntries>
+<!--                            本地没有依赖第三方包，可以不用manifestEntries-->
+<!--                            <manifestEntries>-->
+<!--                                <Class-Path></Class-Path>-->
+<!--                            </manifestEntries>-->
                         </archive>
                     </configuration>
                 </plugin>
