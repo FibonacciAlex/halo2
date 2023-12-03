@@ -173,10 +173,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
             // Create theme folder
             Path themePath = themeService.getBasePath().resolve(HaloConst.DEFAULT_THEME_ID);
 
-            if (themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_ID).isEmpty()
-                //测试期间可能没有主题，这里要加个判断，存在这个文件才复制  TODO 测试环境存在启动重复copy问题，不确定是不是因为workDir设置有问题而导致此问题
-                && source.resolve(HaloConst.DEFAULT_THEME_DIR_NAME).toFile().exists()
-            ) {
+            if (themeService.fetchThemePropertyBy(HaloConst.DEFAULT_THEME_ID).isEmpty()) {
                 FileOperateUtils.copyFolder(source.resolve(HaloConst.DEFAULT_THEME_DIR_NAME), themePath);
                 log.info("Copied theme folder from [{}] to [{}]", source, themePath);
             }
