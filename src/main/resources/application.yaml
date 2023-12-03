@@ -32,8 +32,8 @@ spring:
     enabled: false
   servlet:
     multipart:
-      max-file-size: 10240MB
-      max-request-size: 10240MB
+      max-file-size: 20MB
+      max-request-size: 20MB
       resolve-lazily: true
   freemarker:
     suffix: .ftl
@@ -56,12 +56,12 @@ management:
   health:
     redis:
       enabled: false
-logging:
-  level:
-    run.halo.app: INFO
-    org.eclipse.jetty.server.HttpChannel: ERROR
-  file:
-    path: ${halo.work-dir}/logs
+#logging:
+#  level:
+#    run.halo.app: INFO
+#    org.eclipse.jetty.server.HttpChannel: ERROR
+#  file:
+#    path: ${halo.work-dir}/logs
 
 springfox:
   documentation:
