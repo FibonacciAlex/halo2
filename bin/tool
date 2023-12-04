@@ -1,7 +1,7 @@
 #!/bin/sh
 
 APP_NAME="halo"
-JAVA_OPTS="-Xms256m -Xmx256m -Dfile.encoding=UTF-8"
+JAVA_OPTS="-Xms256m -Xmx256m -Dfile.encoding=UTF-8 -Duser.timezone=GMT+8"
 psid=0
 
 checkpid() {
