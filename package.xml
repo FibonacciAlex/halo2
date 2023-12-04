@@ -12,9 +12,27 @@
 
     <fileSets>
         <fileSet>
-            <directory>src/main/resources/</directory>
-            <outputDirectory>/resources</outputDirectory>
+            <!-- 资源文件位置 -->
+            <directory>src/main/resources</directory>
+            <!-- 输出的位置 -->
+            <outputDirectory>config</outputDirectory>
+            <!-- 导入的资源文件 -->
+            <includes>
+                <include>*.properties</include>
+                <include>*.yaml</include>
+                <include>*.xml</include>
+            </includes>
+            <!-- 不导入的资源文件 -->
+            <excludes>
+                <exclude>admin</exclude>
+                <exclude>migration</exclude>
+                <exclude>templates</exclude>
+                <exclude>*dev.yaml</exclude>
+                <exclude>*demo.yaml</exclude>
+                <exclude>*bak.xml</exclude>
+            </excludes>
         </fileSet>
+
 
         <fileSet>
             <directory>bin/</directory>

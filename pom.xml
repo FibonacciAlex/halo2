@@ -280,6 +280,7 @@
     </dependencies>
 
     <build>
+
         <finalName>halo</finalName>
             <plugins>
 <!--                <plugin>-->
@@ -309,6 +310,33 @@
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <excludes>
+                            <!-- 去掉 controller 模块的不需要打进 jar 的配置文件 -->
+                            <exclude>**/*.properties</exclude>
+                            <exclude>*.yaml</exclude>
+                            <exclude>*.xml</exclude>
+                        </excludes>
+                        <archive>
+                            <manifest>
+                                <mainClass>run.halo.app.Application</mainClass>
+<!--                                外部依赖包位置-->
+                                <classpathPrefix>lib/</classpathPrefix>
+<!--                                是否使用外部包-->
+                                <addClasspath>true</addClasspath>
+                            </manifest>
+<!--                            本地没有依赖第三方包，可以不用manifestEntries,但配置文件在打包的时候移到了外部config文件夹，所以还要把这个带上-->
+                            <manifestEntries>
+                                <Class-Path>./config/</Class-Path>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <configuration>
@@ -327,26 +355,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>run.halo.app.Application</mainClass>
-<!--                                外部依赖包位置-->
-                                <classpathPrefix>lib/</classpathPrefix>
-<!--                                是否使用外部包-->
-                                <addClasspath>true</addClasspath>
-                            </manifest>
-<!--                            本地没有依赖第三方包，可以不用manifestEntries-->
-<!--                            <manifestEntries>-->
-<!--                                <Class-Path></Class-Path>-->
-<!--                            </manifestEntries>-->
-                        </archive>
-                    </configuration>
                 </plugin>
             </plugins>
     </build>

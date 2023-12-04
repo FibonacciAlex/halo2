@@ -68,7 +68,7 @@ status() {
 }
 
 showlog() {
-   tail -f logs/spring.log
+   tail -f logs/halo_info.log
 }
 
 

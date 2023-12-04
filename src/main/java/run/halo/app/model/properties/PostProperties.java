@@ -29,7 +29,7 @@ public enum PostProperties implements PropertyEnum {
     /**
      * Post index page size.
      */
-    INDEX_PAGE_SIZE("post_index_page_size", Integer.class, "10"),
+    INDEX_PAGE_SIZE("post_index_page_size", Integer.class, "9"),
 
     /**
      * Archives page size.
