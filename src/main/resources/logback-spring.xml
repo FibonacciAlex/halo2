@@ -35,7 +35,7 @@
             <!-- 日志文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
             <!-- 文件名：logs/project_info.2017-12-05.0.log -->
             <!-- 注意：SizeAndTimeBasedRollingPolicy中 ％i和％d令牌都是强制性的，必须存在，要不会报错 -->
-            <fileNamePattern>logs/halo_info.%d.%i.log</fileNamePattern>
+            <fileNamePattern>logs/halo_info.%d.%i.gz</fileNamePattern>
             <!-- 每产生一个日志文件，该日志文件的保存期限为30天, ps:maxHistory的单位是根据fileNamePattern中的翻转策略自动推算出来的,例如上面选用了yyyy-MM-dd,则单位为天
             如果上面选用了yyyy-MM,则单位为月,另外上面的单位默认为yyyy-MM-dd-->
             <maxHistory>30</maxHistory>
@@ -73,7 +73,7 @@
             <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
             <!-- 文件名：logs/project_error.2017-12-05.0.log -->
             <!-- 注意：SizeAndTimeBasedRollingPolicy中 ％i和％d令牌都是强制性的，必须存在，要不会报错 -->
-            <fileNamePattern>logs/halo_error.%d.%i.log</fileNamePattern>
+            <fileNamePattern>logs/halo_error.%d.%i.gz</fileNamePattern>
             <!-- 每产生一个日志文件，该日志文件的保存期限为30天, ps:maxHistory的单位是根据fileNamePattern中的翻转策略自动推算出来的,例如上面选用了yyyy-MM-dd,则单位为天
             如果上面选用了yyyy-MM,则单位为月,另外上面的单位默认为yyyy-MM-dd-->
             <maxHistory>30</maxHistory>
