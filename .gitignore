@@ -2,3 +2,7 @@
 /target/
 /logs/
 /halo-dev/
+/halo-data-export/
+/halo-backup/
+/db/
+/workDir/
