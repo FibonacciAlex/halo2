@@ -214,11 +214,13 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/net.sf/image4j -->
         <dependency>
-            <groupId>net.sf.image4j</groupId>
+            <groupId>net.sf</groupId>
             <artifactId>image4j</artifactId>
-            <version>0.7zensight1</version>
+            <version>0.7</version>
         </dependency>
+
 
 
         <dependency>
